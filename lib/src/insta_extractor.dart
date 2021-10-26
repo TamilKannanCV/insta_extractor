@@ -20,7 +20,7 @@ class InstaExtractor {
   static Future<void> setCookies({
     required String dsUserId,
     required String sessionId,
-    }) async {
+  }) async {
     await GetStorage.init();
     await GetStorage().write("ds_user_id", dsUserId);
     await GetStorage().write("sessionid", sessionId);
@@ -68,7 +68,8 @@ class InstaExtractor {
         jsonDecode(response.body)[ApiUtils.graphql][ApiUtils.user]);
   }
 
-  static Future<StoryDetails> getStories(String username) async {
+  static Future<StoryDetails> getStories(String link) async {
+    final username = LinkUtils.getUsername(link);
     var client = RetryClient(Client());
 
     Response response;
