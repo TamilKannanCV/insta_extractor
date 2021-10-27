@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:insta_extractor/insta_extractor.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -17,7 +20,18 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(),
+      body: Center(
+          child: TextButton(
+              child: Text("Click me!"),
+              onPressed: () async {
+                final graphql = await InstaExtractor.getDetails(
+                        "https://www.instagram.com/p/CVfozhNPFrB/?__a=1")
+                    .then((value) {
+                  log(value.shortcodeMedia.owner.username.toString());
+                }).catchError((e) {
+                  log(e.toString());
+                });
+              })),
     );
   }
 }
