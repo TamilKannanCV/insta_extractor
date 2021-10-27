@@ -25,7 +25,7 @@ class _MainAppState extends State<MainApp> {
               child: Text("Click me!"),
               onPressed: () async {
                 final graphql = await InstaExtractor.getDetails(
-                        "https://www.instagram.com/p/CVfozhNPFrB/?__a=1")
+                        "https://www.instagram.com/p/CVfozhPFrB/")
                     .then((value) {
                   log(value.shortcodeMedia.owner.username.toString());
                 }).catchError((e) {
