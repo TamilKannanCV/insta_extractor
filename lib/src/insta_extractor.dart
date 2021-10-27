@@ -14,9 +14,9 @@ import 'models/stories/story.dart';
 import 'models/user.dart';
 
 class InstaExtractor {
-  static const _userId = "ds_user_id";
-  static const _sessionId = "sessionid";
-  static const _csrftoken = "csrftoken";
+  static const kUserId = "ds_user_id";
+  static const kSessionId = "sessionid";
+  static const kCsrftoken = "csrftoken";
 
   ///Sets the cookies into storage
   static Future<void> setCookies({
@@ -25,9 +25,9 @@ class InstaExtractor {
     required String csrftoken,
   }) async {
     await GetStorage.init();
-    await GetStorage().write(_userId, userId);
-    await GetStorage().write(_sessionId, sessionId);
-    await GetStorage().write(_csrftoken, csrftoken);
+    await GetStorage().write(kUserId, userId);
+    await GetStorage().write(kSessionId, sessionId);
+    await GetStorage().write(kCsrftoken, csrftoken);
   }
 
   ///Returns the details of posts, reels, igtv
@@ -56,7 +56,7 @@ class InstaExtractor {
     try {
       response = await client.get(Uri.parse(
           "https://instagram-unofficial-api.herokuapp.com/unofficial/api/profile?userid=" +
-              _getString(_userId)));
+              _getString(kUserId)));
 
       String url =
           "https://www.instagram.com/${jsonDecode(response.body)[ApiUtils.user][ApiUtils.username]}/?__a=1";
