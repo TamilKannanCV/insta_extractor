@@ -49,6 +49,7 @@ class InstaExtractor {
     return Graphql.fromJson(jsonDecode(response.body));
   }
 
+  ///Returns [User] details
   static Future<User> getUser() async {
     var client = RetryClient(Client());
 
@@ -72,6 +73,7 @@ class InstaExtractor {
         jsonDecode(response.body)[ApiUtils.graphql][ApiUtils.user]);
   }
 
+  ///Returns [StoryDetails] for the given link
   static Future<StoryDetails> getStories(String link) async {
     final username = LinkUtils.getUsername(link);
     var client = RetryClient(Client());
