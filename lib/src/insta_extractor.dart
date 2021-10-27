@@ -15,15 +15,19 @@ import 'models/user.dart';
 
 class InstaExtractor {
   static const _userId = "ds_user_id";
+  static const _sessionId = "sessionid";
+  static const _csrftoken = "csrftoken";
 
   ///Sets the cookies into storage
   static Future<void> setCookies({
-    required String dsUserId,
+    required String userId,
     required String sessionId,
+    required String csrftoken,
   }) async {
     await GetStorage.init();
-    await GetStorage().write("ds_user_id", dsUserId);
-    await GetStorage().write("sessionid", sessionId);
+    await GetStorage().write(_userId, userId);
+    await GetStorage().write(_sessionId, sessionId);
+    await GetStorage().write(_csrftoken, csrftoken);
   }
 
   ///Returns the details of posts, reels, igtv
