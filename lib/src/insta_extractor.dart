@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
 import 'package:insta_extractor/src/models/graphql.dart';
 import 'package:insta_extractor/src/utils/api_utils.dart';
 import 'package:insta_extractor/src/utils/link_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/stories/details/story_details.dart';
 import 'models/stories/details/tray.dart';
@@ -24,10 +24,10 @@ class InstaExtractor {
     required String sessionId,
     required String csrftoken,
   }) async {
-    await GetStorage.init();
-    await GetStorage().write(kUserId, userId);
-    await GetStorage().write(kSessionId, sessionId);
-    await GetStorage().write(kCsrftoken, csrftoken);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(kUserId, userId);
+    await preferences.setString(kSessionId, sessionId);
+    await preferences.setString(kCsrftoken, csrftoken);
   }
 
   ///Returns the details of posts, reels, igtv
@@ -37,7 +37,7 @@ class InstaExtractor {
     Response response;
     try {
       response = await client.get(Uri.parse(parsedLink), headers: {
-        ApiUtils.cookie: await _generateCookie(),
+        ApiUtils.cookie: await generateCookie(),
         ApiUtils.userAgent: ApiUtils.USERAGENT
       });
     } on SocketException catch (e) {
@@ -57,12 +57,12 @@ class InstaExtractor {
     try {
       response = await client.get(Uri.parse(
           "https://instagram-unofficial-api.herokuapp.com/unofficial/api/profile?userid=" +
-              _getString(kUserId)));
+              await _getString(kUserId)));
 
       String url =
           "https://www.instagram.com/${jsonDecode(response.body)[ApiUtils.user][ApiUtils.username]}/?__a=1";
       response = await client.get(Uri.parse(url), headers: {
-        ApiUtils.cookie: await _generateCookie(),
+        ApiUtils.cookie: await generateCookie(),
         ApiUtils.userAgent: ApiUtils.USERAGENT
       });
     } finally {
@@ -83,7 +83,7 @@ class InstaExtractor {
       response = await client.get(
           Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
           headers: {
-            ApiUtils.cookie: await _generateCookie(),
+            ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
 
@@ -95,7 +95,7 @@ class InstaExtractor {
           Uri.parse(
               "https://i.instagram.com/api/v1/users/${tray.user.pk}/full_detail_info/"),
           headers: {
-            ApiUtils.cookie: await _generateCookie(),
+            ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
     } finally {
@@ -105,12 +105,14 @@ class InstaExtractor {
     return StoryDetails.fromJson(jsonDecode(response.body));
   }
 
-  static String _getString(String key) {
-    return GetStorage().read(key) ?? '';
+  static Future<String> _getString(String key) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString(key) ?? '';
   }
 
-  static Future<String> _generateCookie() async {
-    await GetStorage.init();
-    return "ds_user_id=${_getString(kUserId)}; sessionid=${_getString(kSessionId)}";
+  static Future<String> generateCookie() async {
+    final userId = _getString(kUserId);
+    final sessionId = _getString(kSessionId);
+    return "ds_user_id=$userId; sessionid=$sessionId";
   }
 }
