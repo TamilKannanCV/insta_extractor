@@ -93,9 +93,10 @@ class InstaExtractor {
       log(response.body);
 
       Story story = Story.fromJson(jsonDecode(response.body));
+      log(story.trays.length.toString() + " Story passed");
       Tray tray =
           story.trays.firstWhere((tray) => tray.user.username == username);
-
+      log(tray.items.length.toString() + " Tray passed");
       response = await client.get(
           Uri.parse(
               "https://i.instagram.com/api/v1/users/${tray.user.pk}/full_detail_info/"),
