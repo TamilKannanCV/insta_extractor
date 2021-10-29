@@ -104,6 +104,8 @@ class InstaExtractor {
             ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
+    } catch (e) {
+      log(e.toString());
     } finally {
       client.close();
     }
