@@ -113,8 +113,8 @@ class InstaExtractor {
   }
 
   static Future<String> generateCookie() async {
-    final userId = _getString(kUserId);
-    final sessionId = _getString(kSessionId);
+    final userId = await _getString(kUserId);
+    final sessionId = await _getString(kSessionId);
     log(userId + " - " + sessionId);
     return "ds_user_id=$userId; sessionid=$sessionId";
   }
