@@ -104,6 +104,8 @@ class InstaExtractor {
       client.close();
     }
 
+    log(response.body);
+
     return StoryDetails.fromJson(jsonDecode(response.body));
   }
 
