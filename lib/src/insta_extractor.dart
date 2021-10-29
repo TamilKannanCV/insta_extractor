@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:http/http.dart';
@@ -28,6 +29,7 @@ class InstaExtractor {
     await preferences.setString(kUserId, userId);
     await preferences.setString(kSessionId, sessionId);
     await preferences.setString(kCsrftoken, csrftoken);
+    log(userId + " - " + sessionId + " - " + csrftoken);
   }
 
   ///Returns the details of posts, reels, igtv
@@ -113,6 +115,7 @@ class InstaExtractor {
   static Future<String> generateCookie() async {
     final userId = _getString(kUserId);
     final sessionId = _getString(kSessionId);
+    log(userId + " - " + sessionId);
     return "ds_user_id=$userId; sessionid=$sessionId";
   }
 }
