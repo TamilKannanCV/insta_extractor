@@ -90,6 +90,8 @@ class InstaExtractor {
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
 
+      log(response.body);
+
       Story story = Story.fromJson(jsonDecode(response.body));
       Tray tray =
           story.trays.firstWhere((tray) => tray.user.username == username);
