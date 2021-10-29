@@ -81,7 +81,7 @@ class InstaExtractor {
     log(username);
     var client = RetryClient(Client());
 
-    Response response;
+    Response? response;
     try {
       response = await client.get(
           Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
@@ -89,8 +89,6 @@ class InstaExtractor {
             ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
-
-      log(response.body);
 
       Story story = Story.fromJson(jsonDecode(response.body));
       log(story.trays.length.toString() + " Story passed");
@@ -106,11 +104,12 @@ class InstaExtractor {
           });
     } catch (e) {
       log(e.toString());
+      Future.error(e);
     } finally {
       client.close();
     }
 
-    log(response.body);
+    log(response!.body);
 
     return StoryDetails.fromJson(jsonDecode(response.body));
   }
