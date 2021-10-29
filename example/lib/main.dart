@@ -24,7 +24,6 @@ class _MainAppState extends State<MainApp> {
           child: TextButton(
               child: Text("Click me!"),
               onPressed: () async {
-                
                 final storyDetails = await InstaExtractor.getStories(
                         "https://instagram.com/stories/xxxyyyzzz/2694xxxyyyzzz61989?utm_medium=share_sheet")
                     .then((value) {
