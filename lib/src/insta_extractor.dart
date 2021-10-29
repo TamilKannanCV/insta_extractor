@@ -109,9 +109,9 @@ class InstaExtractor {
       client.close();
     }
 
-    log(response!.body);
+    // log(response!.body);
 
-    return StoryDetails.fromJson(jsonDecode(response.body));
+    return StoryDetails.fromJson(jsonDecode(response!.body));
   }
 
   static Future<String> _getString(String key) async {

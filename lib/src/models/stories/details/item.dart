@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:insta_extractor/src/utils/api_utils.dart';
 
 import 'video_version.dart';

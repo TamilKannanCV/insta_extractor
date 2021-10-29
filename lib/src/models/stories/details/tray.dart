@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:insta_extractor/src/utils/api_utils.dart';
 
 import '../story_user.dart';
@@ -14,8 +16,11 @@ class Tray {
     StoryUser storyUser = StoryUser.fromJson(response[ApiUtils.user]);
     int mediaCount = response[ApiUtils.mediaCount] as int;
     List<StoryItem> items = List.empty(growable: true);
-    for (var data in (response[ApiUtils.items] as List<dynamic>)) {
-      items.add(StoryItem.fromJson(data));
+
+    if (response[ApiUtils.items] != null) {
+      for (var data in (response[ApiUtils.items] as List<dynamic>)) {
+        items.add(StoryItem.fromJson(data));
+      }
     }
 
     return Tray(storyUser, mediaCount, items);

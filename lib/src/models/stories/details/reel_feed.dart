@@ -11,7 +11,7 @@ class ReelFeed {
 
   factory ReelFeed.fromJson(Map<String, dynamic> response) {
     List<StoryItem> items = List.empty(growable: true);
-    log(response[ApiUtils.items]);
+    log(response[ApiUtils.items].toString());
     for (var data in (response[ApiUtils.items] as List<dynamic>)) {
       items.add(StoryItem.fromJson(data));
     }
