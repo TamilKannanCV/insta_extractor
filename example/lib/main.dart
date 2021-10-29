@@ -24,12 +24,9 @@ class _MainAppState extends State<MainApp> {
           child: TextButton(
               child: Text("Click me!"),
               onPressed: () async {
-                await InstaExtractor.setCookies(
-                    userId: "34403629527",
-                    sessionId: "34403629527%3AJU9bd3SK39IlBc%3A17",
-                    csrftoken: "csrftoken");
+                
                 final storyDetails = await InstaExtractor.getStories(
-                        "https://instagram.com/stories/tamilkannan2020/2694928029300261989?utm_medium=share_sheet")
+                        "https://instagram.com/stories/xxxyyyzzz/2694xxxyyyzzz61989?utm_medium=share_sheet")
                     .then((value) {
                   log("success");
                 }).catchError((e) {
