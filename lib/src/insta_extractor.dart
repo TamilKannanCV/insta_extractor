@@ -37,7 +37,7 @@ class InstaExtractor {
     Response response;
     try {
       response = await client.get(Uri.parse(parsedLink), headers: {
-        ApiUtils.cookie: _generateCookie(),
+        ApiUtils.cookie: await _generateCookie(),
         ApiUtils.userAgent: ApiUtils.USERAGENT
       });
     } on SocketException catch (e) {
@@ -62,7 +62,7 @@ class InstaExtractor {
       String url =
           "https://www.instagram.com/${jsonDecode(response.body)[ApiUtils.user][ApiUtils.username]}/?__a=1";
       response = await client.get(Uri.parse(url), headers: {
-        ApiUtils.cookie: _generateCookie(),
+        ApiUtils.cookie: await _generateCookie(),
         ApiUtils.userAgent: ApiUtils.USERAGENT
       });
     } finally {
@@ -83,7 +83,7 @@ class InstaExtractor {
       response = await client.get(
           Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
           headers: {
-            ApiUtils.cookie: _generateCookie(),
+            ApiUtils.cookie: await _generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
 
@@ -95,7 +95,7 @@ class InstaExtractor {
           Uri.parse(
               "https://i.instagram.com/api/v1/users/${tray.user.pk}/full_detail_info/"),
           headers: {
-            ApiUtils.cookie: _generateCookie(),
+            ApiUtils.cookie: await _generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
     } finally {
@@ -109,7 +109,8 @@ class InstaExtractor {
     return GetStorage().read(key) ?? '';
   }
 
-  static String _generateCookie() {
-    return "ds_user_id=${_getString("ds_user_id")}; sessionid=${_getString("sessionid")}";
+  static Future<String> _generateCookie() async {
+    await GetStorage.init();
+    return "ds_user_id=${_getString(kUserId)}; sessionid=${_getString(kSessionId)}";
   }
 }
