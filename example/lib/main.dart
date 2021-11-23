@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:insta_extractor/insta_extractor.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: MainApp(),
-  ));
+  runApp(
+    const MaterialApp(
+      home: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {
@@ -21,17 +23,19 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: TextButton(
-              child: Text("Click me!"),
-              onPressed: () async {
-                final storyDetails = await InstaExtractor.getStories(
-                        "https://instagram.com/stories/xxxyyyzzz/2694xxxyyyzzz61989?utm_medium=share_sheet")
-                    .then((value) {
-                  log("success");
-                }).catchError((e) {
-                  log(e.toString());
-                });
-              })),
+        child: TextButton(
+          child: const Text("Click me!"),
+          onPressed: () async {
+            final storyDetails = await InstaExtractor.getStories(
+                    "https://instagram.com/stories/xxxyyyzzz/2694xxxyyyzzz61989?utm_medium=share_sheet")
+                .then((value) {
+              log("success");
+            }).catchError((e) {
+              log(e.toString());
+            });
+          },
+        ),
+      ),
     );
   }
 }
