@@ -1,6 +1,6 @@
 abstract class LinkUtils {
   static const String kInstagramPattern =
-      "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram\\.com\\/)((p|reel|tv)\\/(?<id>[A-Za-z-_0-9\\w]+)\\/))";
+      "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram\\.com\\/)([A-z_0-9\\w]+\\/|)((p|reel|tv)\\/(?<id>[A-Za-z-_0-9\\w]+)\\/))";
   static const String kInstaStoryPattern =
       "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram.com\\/stories\\/)(?<username>[A-Za-z-_.0-9\\w]+)(\\/[0-9]+)\\/?)";
 
