@@ -1,6 +1,6 @@
 name: insta_extractor
 description: This plugin lets you download instagram reels, igtv, posts, stories
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/TamilKannanCV-personal/insta_extractor.git
 
 environment:
