@@ -8,7 +8,7 @@ class StoryDetails {
   const StoryDetails(this.reelFeed, this.owner);
 
   factory StoryDetails.fromJson(Map<String, dynamic> response) {
-    final owner = Owner.fromMap(response["user_detail"]);
+    final owner = Owner.fromMap(response["user_detail"]["user"]);
     final reelFeed = ReelFeed.fromMap(response[ApiUtils.reelFeed]);
     return StoryDetails(reelFeed, owner);
   }
