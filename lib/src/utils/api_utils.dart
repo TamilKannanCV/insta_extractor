@@ -27,8 +27,7 @@ abstract class ApiUtils {
   static const String candidates = "candidates";
   static const String imageVersions2 = "image_versions2";
   static const String profilePicUrl = "profile_pic_url";
-  static const String owner = "owner";
-
+  
   static const String USERAGENT =
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36";
 

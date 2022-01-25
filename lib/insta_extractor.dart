@@ -1,9 +1,4 @@
 export 'src/insta_extractor.dart';
-export 'src/models/content.dart';
-export 'src/models/edge_sidecar_to_children.dart';
-export 'src/models/owner.dart';
-export 'src/models/graphql.dart';
-export 'src/models/shortcode_media.dart';
 export 'src/models/user.dart';
 export 'src/models/stories/details/image_version.dart';
 export 'src/models/stories/details/item.dart';
