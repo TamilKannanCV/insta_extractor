@@ -1,12 +1,10 @@
 export 'src/insta_extractor.dart';
 export 'src/models/user.dart';
-export 'src/models/stories/details/image_version.dart';
 export 'src/models/stories/details/item.dart';
 export 'src/models/stories/details/reel_feed.dart';
 export 'src/models/stories/details/story_content.dart';
 export 'src/models/stories/details/story_details.dart';
 export 'src/models/stories/details/tray.dart';
-export 'src/models/stories/details/video_version.dart';
 export 'src/models/stories/story.dart';
 export 'src/utils/link_utils.dart';
 export 'src/models/items/item.dart';

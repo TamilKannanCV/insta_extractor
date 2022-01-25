@@ -1,35 +1,20 @@
-import 'dart:developer';
-
-import 'package:insta_extractor/src/utils/api_utils.dart';
-
-import 'video_version.dart';
-
-import 'image_version.dart';
+import 'package:insta_extractor/src/models/items/image_versions/image_versions2.dart';
+import 'package:insta_extractor/src/models/items/video_version.dart';
 
 class StoryItem {
-  final int mediaType;
   final List<VideoVersion>? videoVersions;
-  final ImageVersion? imageVersion;
+  final ImageVersions2? imageVersion;
 
-  const StoryItem(this.mediaType, {this.imageVersion, this.videoVersions});
+  const StoryItem({this.imageVersion, this.videoVersions});
 
-  factory StoryItem.fromJson(Map<String, dynamic> response) {
-    int mediaType = response[ApiUtils.mediaType] as int;
-    List<VideoVersion>? videoVersions;
-    ImageVersion? imageVersion;
-    switch (mediaType) {
-      case 1:
-        imageVersion = ImageVersion.fromJson(response[ApiUtils.imageVersions2]);
-        break;
-      case 2:
-        videoVersions = List.empty(growable: true);
-        for (var data in (response[ApiUtils.videoVersions] as List<dynamic>)) {
-          videoVersions.add(VideoVersion.fromJson(data));
-        }
-        break;
-    }
-
-    return StoryItem(mediaType,
-        videoVersions: videoVersions, imageVersion: imageVersion);
-  }
+  factory StoryItem.fromJson(Map<String, dynamic> response) => StoryItem(
+        imageVersion: response["image_versions2"] == null
+            ? null
+            : ImageVersions2.fromMap(response["image_versions2"]),
+        videoVersions: response['video_versions'] == null
+            ? null
+            : (response['video_versions'] as List<dynamic>?)
+                ?.map((e) => VideoVersion.fromMap(e as Map<String, dynamic>))
+                .toList(),
+      );
 }

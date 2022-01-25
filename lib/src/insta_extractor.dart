@@ -111,9 +111,9 @@ class InstaExtractor {
       client.close();
     }
 
-    // log(response!.body);
+    log(response!.body);
 
-    return StoryDetails.fromJson(jsonDecode(response!.body));
+    return StoryDetails.fromJson(jsonDecode(response.body));
   }
 
   static Future<String> _getString(String key) async {
@@ -122,8 +122,10 @@ class InstaExtractor {
   }
 
   static Future<String> generateCookie() async {
-    final userId = await _getString(_kUserId);
-    final sessionId = await _getString(_kSessionId);
+    // final userId = await _getString(_kUserId);
+    final userId = "34403629527";
+    // final sessionId = await _getString(_kSessionId);
+    final sessionId = "34403629527%3AJU9bd3SK39IlBc%3A17";
     log(userId + " - " + sessionId);
     return "ds_user_id=$userId; sessionid=$sessionId";
   }

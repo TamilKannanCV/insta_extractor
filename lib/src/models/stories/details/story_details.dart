@@ -1,15 +1,15 @@
-
 import 'package:insta_extractor/src/utils/api_utils.dart';
-
-import 'reel_feed.dart';
+import '../../../../insta_extractor.dart';
 
 class StoryDetails {
   final ReelFeed reelFeed;
+  final Owner owner;
 
-  const StoryDetails(this.reelFeed);
+  const StoryDetails(this.reelFeed, this.owner);
 
   factory StoryDetails.fromJson(Map<String, dynamic> response) {
-    ReelFeed reelFeed = ReelFeed.fromJson(response[ApiUtils.reelFeed]);
-    return StoryDetails(reelFeed);
+    final owner = Owner.fromMap(response["user_detail"]);
+    final reelFeed = ReelFeed.fromMap(response[ApiUtils.reelFeed]);
+    return StoryDetails(reelFeed, owner);
   }
 }

@@ -26,11 +26,13 @@ class _MainAppState extends State<MainApp> {
         child: TextButton(
           child: const Text("Click me!"),
           onPressed: () async {
-            final storyDetails = await InstaExtractor.getDetails(
-              "https://www.instagram.com/p/xxxxxxxxxx/?utm_medium=copy_link",
+            final storyDetails = await InstaExtractor.getStories(
+              "https://www.instagram.com/stories/yakav_/2758877473774018501/",
             ).then((value) {
               log(value.runtimeType.toString());
-              log(value.carouselMedia!.length.toString());
+              log(value
+                  .reelFeed.items.first.imageVersion!.candidates!.first.url
+                  .toString());
               log("success");
             });
           },

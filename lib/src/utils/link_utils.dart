@@ -16,7 +16,6 @@ abstract class LinkUtils {
 }
 
 abstract class ParseLink {
-
   ///Returns the downloadable instagram link
   ///Format: https://instagram.com/p/abc?__a=1 (sample)
   static String instagram(String url) {
