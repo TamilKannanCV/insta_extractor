@@ -9,3 +9,4 @@ export 'src/models/stories/details/tray.dart';
 export 'src/models/stories/details/video_version.dart';
 export 'src/models/stories/story.dart';
 export 'src/utils/link_utils.dart';
+export 'src/models/items/item.dart';
