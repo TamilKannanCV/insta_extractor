@@ -49,7 +49,7 @@ class InstaExtractor {
     }
 
     log(response.body.toString());
-   
+
     return Item.fromJson(response.body);
   }
 
@@ -122,10 +122,8 @@ class InstaExtractor {
   }
 
   static Future<String> generateCookie() async {
-    // final userId = await _getString(kUserId);
-    final userId = "34403629527";
-    // final sessionId = await _getString(kSessionId);
-    final sessionId = "34403629527%3AJU9bd3SK39IlBc%3A17";
+    final userId = await _getString(_kUserId);
+    final sessionId = await _getString(_kSessionId);
     log(userId + " - " + sessionId);
     return "ds_user_id=$userId; sessionid=$sessionId";
   }

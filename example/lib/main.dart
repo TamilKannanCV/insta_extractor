@@ -27,8 +27,8 @@ class _MainAppState extends State<MainApp> {
           child: const Text("Click me!"),
           onPressed: () async {
             final storyDetails = await InstaExtractor.getDetails(
-                    "https://www.instagram.com/p/CZDsNYiJtxR/?utm_medium=copy_link")
-                .then((value) {
+              "https://www.instagram.com/p/xxxxxxxxxx/?utm_medium=copy_link",
+            ).then((value) {
               log(value.runtimeType.toString());
               log(value.carouselMedia!.length.toString());
               log("success");
