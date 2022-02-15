@@ -1,20 +1,18 @@
-import 'dart:developer';
-
 import 'package:insta_extractor/src/utils/api_utils.dart';
 
 import 'item.dart';
 
-class ReelFeed {
+class Feed {
   final List<StoryItem> items;
 
-  const ReelFeed(this.items);
+  const Feed(this.items);
 
-  factory ReelFeed.fromMap(Map<String, dynamic> response) {
+  factory Feed.fromMap(Map<String, dynamic> response) {
     List<StoryItem> items = List.empty(growable: true);
     for (var data in (response[ApiUtils.items] as List<dynamic>)) {
       items.add(StoryItem.fromJson(data));
     }
 
-    return ReelFeed(items);
+    return Feed(items);
   }
 }

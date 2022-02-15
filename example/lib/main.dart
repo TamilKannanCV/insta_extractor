@@ -27,11 +27,10 @@ class _MainAppState extends State<MainApp> {
           child: const Text("Click me!"),
           onPressed: () async {
             final storyDetails = await InstaExtractor.getStories(
-              "https://www.instagram.com/stories/xxxxxx/2758877473774018501/",
+              "https://instagram.com/stories/xxxxxyyyy/27739556987654049",
             ).then((value) {
               log(value.runtimeType.toString());
-              log(value
-                  .reelFeed.items.first.imageVersion!.candidates!.first.url
+              log(value.feed.items.first.imageVersion!.candidates!.first.url
                   .toString());
               log("success");
             });

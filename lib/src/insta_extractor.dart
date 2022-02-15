@@ -85,21 +85,24 @@ class InstaExtractor {
 
     Response? response;
     try {
-      response = await client.get(
-          Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
-          headers: {
-            ApiUtils.cookie: await generateCookie(),
-            ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
-          });
+      final _response = await client.get(
+        Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
+        headers: {
+          ApiUtils.cookie: await generateCookie(),
+          ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
+        },
+      );
 
-      Story story = Story.fromJson(jsonDecode(response.body));
-      log(story.trays.length.toString() + " Story passed");
+      log(_response.body);
+
+      Story story = Story.fromMap(jsonDecode(_response.body));
+
       Tray tray =
-          story.trays.firstWhere((tray) => tray.user.username == username);
-      log(tray.items.length.toString() + " Tray passed");
+          story.trays.firstWhere((tray) => tray.user?.username == username);
+
       response = await client.get(
           Uri.parse(
-              "https://i.instagram.com/api/v1/users/${tray.user.pk}/full_detail_info/"),
+              "https://i.instagram.com/api/v1/users/${tray.user?.pk}/full_detail_info/"),
           headers: {
             ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
@@ -113,7 +116,7 @@ class InstaExtractor {
 
     log(response!.body);
 
-    return StoryDetails.fromJson(jsonDecode(response.body));
+    return StoryDetails.fromMap(jsonDecode(response.body));
   }
 
   static Future<String> _getString(String key) async {

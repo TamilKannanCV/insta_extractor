@@ -23,7 +23,7 @@ abstract class ApiUtils {
   static const String videoVersions = "video_versions";
   static const String tray = "tray";
   static const String pk = "pk";
-  static const String reelFeed = "reel_feed";
+  static const String feed = "feed";
   static const String candidates = "candidates";
   static const String imageVersions2 = "image_versions2";
   static const String profilePicUrl = "profile_pic_url";

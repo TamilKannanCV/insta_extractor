@@ -5,3 +5,7 @@
 ## 0.0.5
 
 * Updated Regex to support all instagram links
+
+## 0.0.6
+
+* Updated Story response data

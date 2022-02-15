@@ -6,15 +6,17 @@ import '../story_user.dart';
 import 'item.dart';
 
 class Tray {
-  final StoryUser user;
-  final int mediaCount;
+  final StoryUser? user;
+  final int? mediaCount;
   final List<StoryItem> items;
 
   const Tray(this.user, this.mediaCount, this.items);
 
-  factory Tray.fromJson(Map<String, dynamic> response) {
-    StoryUser storyUser = StoryUser.fromJson(response[ApiUtils.user]);
-    int mediaCount = response[ApiUtils.mediaCount] as int;
+  factory Tray.fromMap(Map<String, dynamic> response) {
+    StoryUser? storyUser = response[ApiUtils.user] != null
+        ? StoryUser.fromJson(response[ApiUtils.user])
+        : null;
+    int? mediaCount = response[ApiUtils.mediaCount] as int?;
     List<StoryItem> items = List.empty(growable: true);
 
     if (response[ApiUtils.items] != null) {
