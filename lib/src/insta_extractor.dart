@@ -110,7 +110,7 @@ class InstaExtractor {
       Owner owner =
           Owner.fromMap(json.decode(_response.body)["user_detail"]["user"]);
 
-      _storyDetails = StoryDetails(owner, tray);
+      _storyDetails = StoryDetails(owner, story.trays);
     } catch (e) {
       log(e.toString());
       Future.error(e);

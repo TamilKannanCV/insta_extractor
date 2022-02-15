@@ -1,7 +1,7 @@
 import '../../../../insta_extractor.dart';
 
 class StoryDetails {
-  final Tray tray;
+  final List<Tray> trays;
   final Owner owner;
-  StoryDetails(this.owner, this.tray);
+  StoryDetails(this.owner, this.trays);
 }
