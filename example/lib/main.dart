@@ -30,8 +30,6 @@ class _MainAppState extends State<MainApp> {
               "https://instagram.com/stories/tamilkannan2020/2773955665573534049",
             ).then((value) {
               log(value.runtimeType.toString());
-              log(value!.tray.items.first.imageVersion!.candidates!.first.url
-                  .toString());
               log("success");
             });
           },
