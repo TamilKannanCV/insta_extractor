@@ -106,7 +106,9 @@ class InstaExtractor {
             ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
-      Owner owner = Owner.fromJson(_response.body);
+
+      Owner owner =
+          Owner.fromMap(json.decode(_response.body)["user_detail"]["user"]);
 
       _storyDetails = StoryDetails(owner, tray);
     } catch (e) {
