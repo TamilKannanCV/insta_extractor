@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
+import 'package:insta_extractor/insta_extractor.dart';
 import 'package:insta_extractor/src/models/items/item.dart';
 import 'package:insta_extractor/src/utils/api_utils.dart';
 import 'package:insta_extractor/src/utils/link_utils.dart';
@@ -78,14 +79,14 @@ class InstaExtractor {
   }
 
   ///Returns [StoryDetails] for the given link
-  static Future<StoryDetails> getStories(String link) async {
+  static Future<StoryDetails?> getStories(String link) async {
     final username = LinkUtils.getUsername(link);
     log(username);
     var client = RetryClient(Client());
 
-    Response? response;
+    StoryDetails? _storyDetails;
     try {
-      final _response = await client.get(
+      Response _response = await client.get(
         Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
         headers: {
           ApiUtils.cookie: await generateCookie(),
@@ -93,20 +94,21 @@ class InstaExtractor {
         },
       );
 
-      log(_response.body);
-
       Story story = Story.fromMap(jsonDecode(_response.body));
 
       Tray tray =
           story.trays.firstWhere((tray) => tray.user?.username == username);
 
-      response = await client.get(
+      _response = await client.get(
           Uri.parse(
               "https://i.instagram.com/api/v1/users/${tray.user?.pk}/full_detail_info/"),
           headers: {
             ApiUtils.cookie: await generateCookie(),
             ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
           });
+      Owner owner = Owner.fromJson(_response.body);
+
+      _storyDetails = StoryDetails(owner, tray);
     } catch (e) {
       log(e.toString());
       Future.error(e);
@@ -114,9 +116,7 @@ class InstaExtractor {
       client.close();
     }
 
-    log(response!.body);
-
-    return StoryDetails.fromMap(jsonDecode(response.body));
+    return _storyDetails;
   }
 
   static Future<String> _getString(String key) async {
@@ -125,8 +125,10 @@ class InstaExtractor {
   }
 
   static Future<String> generateCookie() async {
-    final userId = await _getString(_kUserId);
-    final sessionId = await _getString(_kSessionId);
+    final userId = "34403629527";
+    final sessionId = "34403629527%3AwVwNqReOuck5YQ%3A25";
+    // final userId = await _getString(_kUserId);
+    // final sessionId = await _getString(_kSessionId);
     log(userId + " - " + sessionId);
     return "ds_user_id=$userId; sessionid=$sessionId";
   }

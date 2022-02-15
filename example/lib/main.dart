@@ -27,7 +27,7 @@ class _MainAppState extends State<MainApp> {
           child: const Text("Click me!"),
           onPressed: () async {
             final storyDetails = await InstaExtractor.getStories(
-              "https://instagram.com/stories/xxxxxyyyy/27739556987654049",
+              "https://instagram.com/stories/tamilkannan2020/2773955665573534049",
             ).then((value) {
               log(value.runtimeType.toString());
               log(value.feed.items.first.imageVersion!.candidates!.first.url
