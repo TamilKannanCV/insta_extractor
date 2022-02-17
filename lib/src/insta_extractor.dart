@@ -4,16 +4,10 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
+// import 'package:insta_extractor/ids.dart' as id;
 import 'package:insta_extractor/insta_extractor.dart';
-import 'package:insta_extractor/src/models/items/item.dart';
 import 'package:insta_extractor/src/utils/api_utils.dart';
-import 'package:insta_extractor/src/utils/link_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'models/stories/details/story_details.dart';
-import 'models/stories/details/tray.dart';
-import 'models/stories/story.dart';
-import 'models/user.dart';
 
 class InstaExtractor {
   static const _kUserId = "ds_user_id";
@@ -127,10 +121,10 @@ class InstaExtractor {
   }
 
   static Future<String> generateCookie() async {
-    final userId = "34403629527";
-    final sessionId = "34403629527%3AwVwNqReOuck5YQ%3A25";
-    // final userId = await _getString(_kUserId);
-    // final sessionId = await _getString(_kSessionId);
+    // final userId = id.userId;
+    // final sessionId = id.sessionId;
+    final userId = await _getString(_kUserId);
+    final sessionId = await _getString(_kSessionId);
     log(userId + " - " + sessionId);
     return "ds_user_id=$userId; sessionid=$sessionId";
   }

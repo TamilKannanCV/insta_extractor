@@ -9,3 +9,4 @@ build/
 # For me
 personal.csv
 insta_response.json
+lib/ids.dart

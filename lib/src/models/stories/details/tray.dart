@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:insta_extractor/src/utils/api_utils.dart';
 
 import '../story_user.dart';
