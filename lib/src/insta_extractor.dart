@@ -32,17 +32,12 @@ class InstaExtractor {
     final parsedLink = ParseLink.instagram(link);
     var client = RetryClient(Client());
     Response response;
-    try {
-      response = await client.get(Uri.parse(parsedLink), headers: {
-        ApiUtils.cookie: await generateCookie(),
-        ApiUtils.userAgent: ApiUtils.USERAGENT
-      });
-    } on SocketException catch (e) {
-      return Future.error(e);
-    } finally {
-      client.close();
-    }
 
+    response = await client.get(Uri.parse(parsedLink), headers: {
+      ApiUtils.cookie: await generateCookie(),
+      ApiUtils.userAgent: ApiUtils.USERAGENT
+    });
+    client.close();
     log(response.body.toString());
 
     return Item.fromJson(response.body);
@@ -53,20 +48,19 @@ class InstaExtractor {
     var client = RetryClient(Client());
 
     Response response;
-    try {
-      response = await client.get(Uri.parse(
-          "https://instagram-unofficial-api.herokuapp.com/unofficial/api/profile?userid=" +
-              await _getString(_kUserId)));
 
-      String url =
-          "https://www.instagram.com/${jsonDecode(response.body)[ApiUtils.user][ApiUtils.username]}/?__a=1";
-      response = await client.get(Uri.parse(url), headers: {
-        ApiUtils.cookie: await generateCookie(),
-        ApiUtils.userAgent: ApiUtils.USERAGENT
-      });
-    } finally {
-      client.close();
-    }
+    response = await client.get(Uri.parse(
+        "https://instagram-unofficial-api.herokuapp.com/unofficial/api/profile?userid=" +
+            await _getString(_kUserId)));
+
+    String url =
+        "https://www.instagram.com/${jsonDecode(response.body)[ApiUtils.user][ApiUtils.username]}/?__a=1";
+    response = await client.get(Uri.parse(url), headers: {
+      ApiUtils.cookie: await generateCookie(),
+      ApiUtils.userAgent: ApiUtils.USERAGENT
+    });
+
+    client.close();
 
     return User.fromJson(
         jsonDecode(response.body)[ApiUtils.graphql][ApiUtils.user]);
@@ -79,38 +73,34 @@ class InstaExtractor {
     var client = RetryClient(Client());
 
     StoryDetails? _storyDetails;
-    try {
-      Response _response = await client.get(
-        Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
+
+    Response _response = await client.get(
+      Uri.parse("https://i.instagram.com/api/v1/feed/reels_tray/"),
+      headers: {
+        ApiUtils.cookie: await generateCookie(),
+        ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
+      },
+    );
+
+    Story story = Story.fromMap(jsonDecode(_response.body));
+
+    Tray tray =
+        story.trays.firstWhere((tray) => tray.user?.username == username);
+
+    _response = await client.get(
+        Uri.parse(
+            "https://i.instagram.com/api/v1/users/${tray.user?.pk}/full_detail_info/"),
         headers: {
           ApiUtils.cookie: await generateCookie(),
           ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
-        },
-      );
+        });
 
-      Story story = Story.fromMap(jsonDecode(_response.body));
+    Owner owner =
+        Owner.fromMap(json.decode(_response.body)["user_detail"]["user"]);
 
-      Tray tray =
-          story.trays.firstWhere((tray) => tray.user?.username == username);
+    _storyDetails = StoryDetails(owner, story.trays);
 
-      _response = await client.get(
-          Uri.parse(
-              "https://i.instagram.com/api/v1/users/${tray.user?.pk}/full_detail_info/"),
-          headers: {
-            ApiUtils.cookie: await generateCookie(),
-            ApiUtils.userAgent: ApiUtils.STORY_USERAGENT
-          });
-
-      Owner owner =
-          Owner.fromMap(json.decode(_response.body)["user_detail"]["user"]);
-
-      _storyDetails = StoryDetails(owner, story.trays);
-    } catch (e) {
-      log(e.toString());
-      Future.error(e);
-    } finally {
-      client.close();
-    }
+    client.close();
 
     return _storyDetails;
   }
