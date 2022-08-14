@@ -11,6 +11,5 @@
 * Updated Story response data
 
 ## 1.0.0
-* Moved from sharedPreferences to Hive Flutter
 * New api added
 * New Unified Model added **Insta**
