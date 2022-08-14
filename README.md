@@ -12,12 +12,9 @@ This plugin lets you download instagram reels, igtv, posts, stories <br>
 
 ## Example
 ```dart
-    // Init InstaExtractor first
-    await InstaExtractor.i.init();
-
     // Login to get the credentials
-    await InstaExtractor.i.setCookies(userId, sessionId, csrftoken);
+    await InstaExtractor.setCookies(userId, sessionId, csrftoken);
 
-    final storyDetails = await InstaExtractor.i.getDetails(
+    final storyDetails = await InstaExtractor.getDetails(
                     "https://instagram.com/stories/xxxyyyzzz/2694xxxyyyzzz61989?utm_medium=share_sheet")
 ```

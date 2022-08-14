@@ -13,7 +13,7 @@ class InstaExtractor {
   static const _kCsrftoken = "csrftoken";
 
   ///Sets the cookies into storage
-  Future<void> setCookies({
+  static Future<void> setCookies({
     required String userId,
     required String sessionId,
     required String csrftoken,
