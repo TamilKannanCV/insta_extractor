@@ -1,8 +1,6 @@
 abstract class LinkUtils {
-  static const String kInstagramPattern =
-      "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram\\.com\\/)([A-z_0-9._\\w]+\\/|)((p|reel|tv)\\/(?<id>[A-z-_0-9\\w]+)\\/))";
-  static const String kInstaStoryPattern =
-      "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram.com\\/stories\\/)(?<username>[A-Za-z-_.0-9\\w]+)(\\/[0-9]+)\\/?)";
+  static const String kInstagramPattern = "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram\\.com\\/)([A-z_0-9._\\w]+\\/|)((p|reel|tv)\\/(?<id>[A-z-_0-9\\w]+)\\/))";
+  static const String kInstaStoryPattern = "(?<required>(http(s)?:\\/\\/((w){3}.)?instagram.com\\/stories\\/)(?<username>[A-Za-z-_.0-9\\w]+)(\\/[0-9]+)\\/?)";
 
   static String getUsername(String url) {
     var matches = RegExp(kInstaStoryPattern).firstMatch(url);
@@ -10,8 +8,11 @@ abstract class LinkUtils {
   }
 
   static bool isInstaUrl(String url) {
-    return RegExp(kInstaStoryPattern).hasMatch(url) ||
-        RegExp(kInstagramPattern).hasMatch(url);
+    return RegExp(kInstaStoryPattern).hasMatch(url) || RegExp(kInstagramPattern).hasMatch(url);
+  }
+
+  static bool isStoryUrl(String url) {
+    return RegExp(kInstaStoryPattern).hasMatch(url);
   }
 }
 

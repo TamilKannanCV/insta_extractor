@@ -14,6 +14,7 @@ class InstaExtractor {
   static const _kUserId = "ds_user_id";
   static const _kSessionId = "sessionid";
   static const _kCsrftoken = "csrftoken";
+  static const _kStatus = "status";
 
   static final _i = InstaExtractor._();
   static InstaExtractor get i => _i;
@@ -45,8 +46,9 @@ class InstaExtractor {
       Uri.parse(ApiUtils.ENDPOINT).replace(
         queryParameters: {
           'url': parsedLink,
-          'sessionId': box.get(_kSessionId, defaultValue: sessionId),
-          'userId': box.get(_kUserId, defaultValue: userId),
+          'sessionId': box.get(_kSessionId),
+          'userId': box.get(_kUserId),
+          'status': LinkUtils.isStoryUrl(link) ? 1 : 0,
         },
       ),
     );
