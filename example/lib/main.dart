@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:insta_extractor/insta_extractor.dart';
 
-void main() {
+Future<void> main() async {
+  await InstaExtractor.i.init();
   runApp(
     const MaterialApp(
       home: MainApp(),
@@ -26,8 +27,8 @@ class _MainAppState extends State<MainApp> {
         child: TextButton(
           child: const Text("Click me!"),
           onPressed: () async {
-            final storyDetails = await InstaExtractor.getStories(
-              "https://instagram.com/stories/tamilkannan2020/2773955665573534049",
+            final storyDetails = await InstaExtractor.i.getDetails(
+              "https://www.instagram.com/p/CQNd204jT9JiTe8qdD7XxV3iV1xwzeoO34ND300/",
             ).then((value) {
               log(value.runtimeType.toString());
               log("success");
