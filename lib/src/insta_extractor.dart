@@ -46,7 +46,7 @@ class InstaExtractor {
           'url': parsedLink,
           'sessionId': box.get(_kSessionId),
           'userId': box.get(_kUserId),
-          'status': LinkUtils.isStoryUrl(link) ? 1 : 0,
+          'status': LinkUtils.isStoryUrl(link) ? '1' : '0',
         },
       ),
     );
