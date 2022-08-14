@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
-import 'package:insta_extractor/ids.dart';
 import 'package:insta_extractor/src/models/insta/insta.dart';
 import 'package:insta_extractor/src/utils/api_utils.dart';
 import 'package:insta_extractor/src/utils/link_utils.dart';
@@ -14,7 +13,6 @@ class InstaExtractor {
   static const _kUserId = "ds_user_id";
   static const _kSessionId = "sessionid";
   static const _kCsrftoken = "csrftoken";
-  static const _kStatus = "status";
 
   static final _i = InstaExtractor._();
   static InstaExtractor get i => _i;
