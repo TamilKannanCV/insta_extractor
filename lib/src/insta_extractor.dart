@@ -45,7 +45,7 @@ class InstaExtractor {
     client.close();
 
     if (response.statusCode == 200) {
-      return InstagramData.fromJson(json.decode(response.body));
+      return InstagramData.fromJson(response.body);
     } else {
       throw ClientException('Internal Server Error');
     }
