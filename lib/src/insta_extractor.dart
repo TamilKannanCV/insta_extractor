@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
-import 'package:insta_extractor/src/models/insta/insta.dart';
+import 'package:insta_extractor/src/models/insta/instagram_data.dart';
 import 'package:insta_extractor/src/utils/api_utils.dart';
 import 'package:insta_extractor/src/utils/link_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,7 +26,7 @@ class InstaExtractor {
   }
 
   ///Returns the details of posts, reels, igtv and user story
-  static Future<Insta> getDetails(String link) async {
+  static Future<InstagramData> getDetails(String link) async {
     final parsedLink = ParseLink.instagram(link);
     var client = RetryClient(Client());
     Response response;
@@ -42,9 +42,13 @@ class InstaExtractor {
       ),
     );
     client.close();
-    log(response.body.toString());
 
-    return Insta.fromJson(response.body);
+    if (response.statusCode == 200) {
+      log(response.body.toString());
+      return InstagramData.fromJson(response.body);
+    } else {
+      throw ClientException('Internal Server Error');
+    }
   }
 
   static Future<String> _getString(String key) async {

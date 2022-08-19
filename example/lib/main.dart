@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:insta_extractor/insta_extractor.dart';
 
 Future<void> main() async {
-  await InstaExtractor.i.init();
   runApp(
     const MaterialApp(
       home: MainApp(),
