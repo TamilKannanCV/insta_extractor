@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart';
@@ -44,8 +45,7 @@ class InstaExtractor {
     client.close();
 
     if (response.statusCode == 200) {
-      log(response.body.toString());
-      return InstagramData.fromJson(response.body);
+      return InstagramData.fromJson(json.decode(response.body));
     } else {
       throw ClientException('Internal Server Error');
     }
