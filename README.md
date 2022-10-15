@@ -18,3 +18,12 @@ This plugin lets you download instagram reels, igtv, posts, stories <br>
     final storyDetails = await InstaExtractor.getDetails(
                     "https://instagram.com/stories/xxxyyyzzz/2694xxxyyyzzz61989?utm_medium=share_sheet")
 ```
+
+<br>
+
+## Migration to 1.0.0
+from<br>
+`InstaExtractor.getStories()`
+<br>
+to<br>
+ `InstaExtractor.getDetails()`
