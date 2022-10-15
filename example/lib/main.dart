@@ -33,7 +33,7 @@ class _MainAppState extends State<MainApp> {
               csrftoken: Keys.csrftoken,
             );
             await InstaExtractor.getDetails(
-              "https://www.instagram.com/p/CQNd204jT9JiTe8qdD7XxV3iV1xwzeoO34ND300/",
+              Keys.sample,
             ).then((value) {
               log(value.runtimeType.toString());
               log("success");
