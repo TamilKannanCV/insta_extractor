@@ -12,4 +12,4 @@
 
 ## 1.0.0
 * New api added
-* New Unified Model added **Insta**
+* New Unified Model added **InstagramData**
