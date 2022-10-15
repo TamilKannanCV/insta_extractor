@@ -32,6 +32,5 @@ abstract class ApiUtils {
 
   static const String STORY_USERAGENT = "Instagram 9.5.2 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/420+";
 
-  static const AWS_ENDPOINT = 'https://9qbag4h9l2.execute-api.ap-south-1.amazonaws.com/live/insta/media';
-  // static const ENDPOINT = 'https://instaapigram.herokuapp.com/media/';
+  static const ENDPOINT = 'https://instaapigram.herokuapp.com/media/';
 }
