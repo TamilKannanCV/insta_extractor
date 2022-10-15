@@ -33,7 +33,7 @@ class InstaExtractor {
     Response response;
 
     response = await client.get(
-      Uri.parse(ApiUtils.ENDPOINT).replace(
+      Uri.parse(ApiUtils.AWS_ENDPOINT).replace(
         queryParameters: {
           'url': parsedLink,
           'sessionId': await _getString(_kSessionId),

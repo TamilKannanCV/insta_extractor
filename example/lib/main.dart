@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:insta_extractor/insta_extractor.dart';
+import 'package:insta_extractor_example/keys.dart';
 
 Future<void> main() async {
   runApp(
@@ -27,12 +28,17 @@ class _MainAppState extends State<MainApp> {
           child: const Text("Click me!"),
           onPressed: () async {
             await InstaExtractor.setCookies(
-                userId: '34403629527', sessionId: '34403629527%3ALhUWEMgKKjb8aA%3A29%3AAYeBI4nk99tTliK9Vygwd4hTrky2Vw-kQL2kseWhtw', csrftoken: 'C3ggfu4v19ojCqvF3qLHWPtmFrtPkwfS');
-            final storyDetails = await InstaExtractor.getDetails(
+              userId: Keys.userId,
+              sessionId: Keys.sessionId,
+              csrftoken: Keys.csrftoken,
+            );
+            await InstaExtractor.getDetails(
               "https://www.instagram.com/p/CQNd204jT9JiTe8qdD7XxV3iV1xwzeoO34ND300/",
             ).then((value) {
               log(value.runtimeType.toString());
               log("success");
+            }).catchError((err) {
+              log(err.toString());
             });
           },
         ),
